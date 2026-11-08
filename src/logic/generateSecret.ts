@@ -1,8 +1,13 @@
-export function generateSecret(
-  length: number,
-  base: number,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  random = Math.random,
-): string {
-  throw new Error('Not implemented');
+export function generateSecret(length: number, base: number, random = Math.random): string {
+  const digits: string[] = [];
+
+  while (digits.length !== length) {
+    const char = Math.floor(random() * base).toString(base);
+
+    if (!digits.includes(char)) {
+      digits.push(char);
+    }
+  }
+
+  return digits.join('');
 }
