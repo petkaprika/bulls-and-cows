@@ -1,0 +1,103 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #101827;
+  color: #f1f5f9;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.settings {
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 25%);
+}
+
+.settings h1 {
+  margin: 0 0 8px;
+  color: #2dd4bf;
+  font-size: 32px;
+  text-align: center;
+}
+
+.settings h2 {
+  margin: 0 0 32px;
+  color: #cbd5e1;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.settings__group {
+  margin-bottom: 28px;
+}
+
+.settings__group h3 {
+  margin: 0 0 12px;
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.settings__options {
+  display: flex;
+  gap: 10px;
+}
+
+.settings__option {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background-color: #334155;
+  color: #e2e8f0;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.settings__option:hover {
+  border-color: #2dd4bf;
+}
+
+.settings__option_selected {
+  border-color: #2dd4bf;
+  background-color: #0f766e;
+  color: #ffffff;
+}
+
+.settings__start {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #14b8a6;
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.settings__start:hover {
+  background-color: #2dd4bf;
+}
