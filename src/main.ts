@@ -6,10 +6,14 @@ import { renderSettings } from './ui/renderSettings.js';
 const app = document.createElement('div');
 app.id = 'app';
 
-function startGame(settings: GameSettings): void {
-  app.replaceChildren(renderGame(settings));
+function showSettings(): void {
+  app.replaceChildren(renderSettings(startGame));
 }
 
-app.append(renderSettings(startGame));
+function startGame(settings: GameSettings): void {
+  app.replaceChildren(renderGame(settings, showSettings));
+}
+
+showSettings();
 
 document.body.prepend(app);

@@ -7,7 +7,7 @@ import { evaluateGuess } from '../logic/evaluateGuess.js';
 import { generateSecret } from '../logic/generateSecret.js';
 import { isValidGuess } from '../logic/isValidGuess.js';
 
-export function renderGame(settings: GameSettings): HTMLElement {
+export function renderGame(settings: GameSettings, onNewGame: () => void): HTMLElement {
   const container = document.createElement('main');
   container.className = 'game';
 
@@ -52,6 +52,13 @@ export function renderGame(settings: GameSettings): HTMLElement {
   submitButton.type = 'submit';
   submitButton.textContent = 'Check';
   submitButton.className = 'game__submit';
+
+  const newGameButton = document.createElement('button');
+  newGameButton.type = 'button';
+  newGameButton.textContent = 'New Game';
+  newGameButton.className = 'game__new-game';
+
+  newGameButton.addEventListener('click', onNewGame);
 
   submitButton.addEventListener('click', () => {
     const guess = guessInput.value.trim();
@@ -107,6 +114,7 @@ export function renderGame(settings: GameSettings): HTMLElement {
     possibleGuessesInfo,
     guessInput,
     submitButton,
+    newGameButton,
     historyTitle,
     historyList,
   );
