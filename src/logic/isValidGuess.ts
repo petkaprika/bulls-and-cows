@@ -1,3 +1,5 @@
+import { createDigitValidator } from './createDigitValidator';
+
 export function isValidGuess(guess: string, length: number, base: number): boolean {
   if (guess.length !== length) {
     return false;
@@ -11,10 +13,7 @@ export function isValidGuess(guess: string, length: number, base: number): boole
     return false;
   }
 
-  return digits.every((value) => {
-    const digit = parseInt(value, base);
-    const isValid = !Number.isNaN(digit) && digit >= 0 && digit < base;
+  const validator = createDigitValidator(base);
 
-    return isValid;
-  });
+  return digits.every((value) => validator(value));
 }
