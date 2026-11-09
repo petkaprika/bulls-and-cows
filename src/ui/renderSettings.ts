@@ -1,6 +1,6 @@
 import type { GameSettings, NumberSystem } from '../types/GameSettings';
 
-export function renderSettings(): HTMLElement {
+export function renderSettings(onStart: (settings: GameSettings) => void): HTMLElement {
   const container = document.createElement('main');
   container.className = 'settings';
 
@@ -34,7 +34,7 @@ export function renderSettings(): HTMLElement {
     button.className = 'settings__option';
 
     if (base === settings.base) {
-      button.classList.add('settings__option--selected');
+      button.classList.add('settings__option_selected');
     }
 
     button.addEventListener('click', () => {
@@ -89,6 +89,10 @@ export function renderSettings(): HTMLElement {
   startButton.type = 'button';
   startButton.textContent = 'Start game';
   startButton.className = 'settings__start';
+
+  startButton.addEventListener('click', () => {
+    onStart({ ...settings });
+  });
 
   function updateSettings(): void {
     baseButtons.forEach((button) => {
