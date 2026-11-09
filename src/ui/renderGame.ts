@@ -51,6 +51,14 @@ export function renderGame(settings: GameSettings): HTMLElement {
       return;
     }
 
+    const alreadyTried = gameState.history.some(
+      (entry) => entry.guess.toLowerCase() === guess.toLowerCase(),
+    );
+
+    if (alreadyTried) {
+      return;
+    }
+
     const result = evaluateGuess(gameState.secret, guess);
 
     gameState = {
