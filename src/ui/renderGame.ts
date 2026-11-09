@@ -2,6 +2,7 @@ import type { GameSettings } from '../types/GameSettings';
 import type { GameState } from '../types/GameState';
 
 import { BASE_VALUES } from '../constants.js';
+import { countPossibleSecrets } from '../logic/countPossibleSecrets.js';
 import { evaluateGuess } from '../logic/evaluateGuess.js';
 import { generateSecret } from '../logic/generateSecret.js';
 import { isValidGuess } from '../logic/isValidGuess.js';
@@ -17,6 +18,8 @@ export function renderGame(settings: GameSettings): HTMLElement {
     history: [],
   };
 
+  const startTime = Date.now();
+
   const title = document.createElement('h1');
   title.textContent = 'Bulls and Cows';
 
@@ -25,6 +28,12 @@ export function renderGame(settings: GameSettings): HTMLElement {
 
   const settingsInfo = document.createElement('p');
   settingsInfo.textContent = `Number system: ${settings.base.toUpperCase()}, digits: ${settings.length}`;
+
+  const possibleGuessesInfo = document.createElement('p');
+  possibleGuessesInfo.textContent = `Possible unique guesses: ${countPossibleSecrets(
+    settings.length,
+    BASE_VALUES[settings.base],
+  ).toLocaleString()}`;
 
   const historyTitle = document.createElement('h3');
   historyTitle.textContent = 'Guess history';
@@ -76,6 +85,16 @@ export function renderGame(settings: GameSettings): HTMLElement {
     if (result.bulls === gameState.settings.length) {
       subtitle.textContent = 'You won!';
       subtitle.classList.add('game__subtitle_won');
+
+      const attempts = gameState.history.length;
+      const endTime = Math.floor((Date.now() - startTime) / 1000);
+
+      const resultInfo = document.createElement('p');
+      resultInfo.className = 'game__result-info';
+      resultInfo.textContent = `Attempts: ${attempts} | Time: ${endTime} seconds`;
+
+      container.append(resultInfo);
+
       guessInput.disabled = true;
       submitButton.disabled = true;
     }
@@ -85,6 +104,7 @@ export function renderGame(settings: GameSettings): HTMLElement {
     title,
     subtitle,
     settingsInfo,
+    possibleGuessesInfo,
     guessInput,
     submitButton,
     historyTitle,

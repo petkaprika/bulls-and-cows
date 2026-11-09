@@ -192,3 +192,7 @@ body {
   font-size: 32px;
   font-weight: 700;
 }
+
+.game__result-info {
+  margin-top: 24px;
+}
