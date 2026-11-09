@@ -186,3 +186,9 @@ body {
   border-bottom: 1px solid #334155;
   font-size: 15px;
 }
+
+.game h2.game__subtitle_won {
+  color: #ef4444;
+  font-size: 32px;
+  font-weight: 700;
+}

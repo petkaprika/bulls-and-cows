@@ -62,6 +62,15 @@ export function renderGame(settings: GameSettings): HTMLElement {
     historyItem.textContent = `${guess} — Bulls: ${result.bulls}, Cows: ${result.cows}`;
 
     historyList.append(historyItem);
+
+    guessInput.value = '';
+
+    if (result.bulls === gameState.settings.length) {
+      subtitle.textContent = 'You won!';
+      subtitle.classList.add('game__subtitle_won');
+      guessInput.disabled = true;
+      submitButton.disabled = true;
+    }
   });
 
   container.append(
