@@ -3,6 +3,7 @@ import type { GameState } from '../types/GameState';
 
 import { BASE_VALUES } from '../constants.js';
 import { countPossibleSecrets } from '../logic/countPossibleSecrets.js';
+import { createDigitValidator } from '../logic/createDigitValidator.js';
 import { evaluateGuess } from '../logic/evaluateGuess.js';
 import { generateSecret } from '../logic/generateSecret.js';
 import { isValidGuess } from '../logic/isValidGuess.js';
@@ -12,11 +13,14 @@ export function renderGame(settings: GameSettings, onNewGame: () => void): HTMLE
   container.className = 'game';
 
   const secret = generateSecret(settings.length, BASE_VALUES[settings.base]);
+
   let gameState: GameState = {
     settings,
     secret,
     history: [],
   };
+
+  const validateDigit = createDigitValidator(BASE_VALUES[settings.base]);
 
   const startTime = Date.now();
 
@@ -47,6 +51,28 @@ export function renderGame(settings: GameSettings, onNewGame: () => void): HTMLE
   guessInput.autocomplete = 'off';
   guessInput.placeholder = `Enter ${gameState.settings.length} unique digits`;
   guessInput.className = 'game__input';
+
+  guessInput.addEventListener('input', () => {
+    const enteredDigits = new Set<string>();
+
+    const filteredValue = guessInput.value
+      .split('')
+      .filter((char) => {
+        const normalizedChar = char.toLowerCase();
+
+        if (!validateDigit(char) || enteredDigits.has(normalizedChar)) {
+          return false;
+        }
+
+        enteredDigits.add(normalizedChar);
+        return true;
+      })
+      .join('');
+
+    if (guessInput.value !== filteredValue) {
+      guessInput.value = filteredValue;
+    }
+  });
 
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
